@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package tour.operator;
 
 import java.io.BufferedReader;
@@ -5,31 +10,27 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class PortControlleur {
+/**
+ *
+ * @author Utilisateur
+ */
+public class VoyageParBateauControleur {
 
-    private PortModele ptm1 = new PortModele();
-    private PortVue pv1 = new PortVue();
-    String id = null;
+    private VoyageParBateauModele voyBatMod = new VoyageParBateauModele();
+    private VoyageParBateauVue voyBatVue = new VoyageParBateauVue();
+    String  id = null;
 
-    public PortControlleur() {
-
+    public VoyageParBateauControleur() {
     }
 
-    public PortControlleur(PortModele ptm1, PortVue pv1) {
-        this.ptm1 = ptm1;
-        this.pv1 = pv1;
+    public void  ajout(){
+        boolean verif = recherche(voyBatVue.verifId());
+        if(verif == false){
+            voyBatMod.ajouterVoyageBateau(voyBatVue.ajouterVoyBateau(id));
+        }     
     }
-
-    public void ajoutPort() {
-        boolean verif = recherche(pv1.verifId());
-        if (verif == false) {
-            pv1.affMsg(ptm1.ajoutPort(pv1.ajoutPort(id)));
-        }
-
-    }
-
-    public boolean recherche(String ida) {
-        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\port.txt");
+     public boolean recherche(String ida) {
+        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\voyage_par_bateau.txt");
         boolean verif = false;
         if (f.exists()) {
             try {
@@ -38,7 +39,7 @@ public class PortControlleur {
                 while ((line != null) && (verif != true)) {
                     String[] part = line.split("/");
                     if (ida.equals(part[0])) {
-                        pv1.affMsg("cet aeroport existe deja");
+                        voyBatVue.affMsg("cet aeroport existe deja");
                         verif = true;
                     }
                     line = br.readLine();

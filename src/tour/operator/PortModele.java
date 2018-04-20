@@ -1,18 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tour.operator;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- *
- * @author Utilisateur
- */
+
 public class PortModele {
 
     private List<Port>  mesPort = new ArrayList<>();
@@ -22,6 +19,7 @@ public class PortModele {
     
     public String ajoutPort(Port port1){
         mesPort.add(port1);
+        saveInFile(port1);
         String msg = "ok";
         return msg;
     }
@@ -74,6 +72,33 @@ public class PortModele {
     @Override
     public String toString() {
         return "PortModele{" + "mesPort=" + mesPort + '}';
+    }
+    public void saveInFile(Port P) {
+
+        File p = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\port.txt");
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        if (!p.exists()) {
+            try {
+                p.createNewFile();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        try {
+            bw = new BufferedWriter(new FileWriter(p, true));
+            bw.write(P.getIdAeroport());
+            bw.write("/");
+            bw.write(P.getNom());
+            bw.write("/");
+            bw.write(P.getVille());
+            bw.write("/");
+            bw.write(P.getPays());
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

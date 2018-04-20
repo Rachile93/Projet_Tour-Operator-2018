@@ -1,21 +1,38 @@
-
 package tour.operator;
-import java.util.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Objects;
+import java.time.format.DateTimeFormatter;
+import javax.swing.text.DateFormatter;
+
 public class VoyageParVol {
 
     private String idVol;
     private String AeroportDepart;
     private String AeroportDestination;
-    private int heureDepart;
-    private int heureArrive;
-    private int dateDepart;
-    private int dateArrive;
+    private LocalTime heureDepart;
+    private LocalTime heureArrive;
+    private LocalDate dateDepart;
+    private LocalDate dateArrive;
     private double prix;
+
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
 
     public VoyageParVol() {
     }
-
-    public VoyageParVol(String idVol, String AeroportDepart, String AeroportDestination, int heureDepart, int heureArrive, int dateDepart, int dateArrive, double prix) {
+    /**
+     * contructeur qui permet de creer un objet de voyage en avion 
+     * @param idVol identifient du vol
+     * @param AeroportDepart nom de l'aeroport depart du vol
+     * @param AeroportDestination  nom de l'aeroport destination du vol
+     * @param heureDepart heure depart du vol
+     * @param heureArrive heure d'arriver du vol
+     * @param dateDepart date de depart du vol
+     * @param dateArrive date d'arriver du vol
+     * @param prix  prix du trajet 
+     */
+    public VoyageParVol(String idVol, String AeroportDepart, String AeroportDestination, LocalTime heureDepart, LocalTime heureArrive, LocalDate dateDepart, LocalDate dateArrive, double prix) {
         this.idVol = idVol;
         this.AeroportDepart = AeroportDepart;
         this.AeroportDestination = AeroportDestination;
@@ -50,35 +67,35 @@ public class VoyageParVol {
         this.AeroportDestination = AeroportDestination;
     }
 
-    public int getHeureDepart() {
+    public LocalTime getHeureDepart() {
         return heureDepart;
     }
 
-    public void setHeureDepart(int heureDepart) {
+    public void setHeureDepart(LocalTime heureDepart) {
         this.heureDepart = heureDepart;
     }
 
-    public int getHeureArrive() {
+    public LocalTime getHeureArrive() {
         return heureArrive;
     }
 
-    public void setHeureArrive(int heureArrive) {
+    public void setHeureArrive(LocalTime heureArrive) {
         this.heureArrive = heureArrive;
     }
 
-    public int getDateDepart() {
+    public LocalDate getDateDepart() {
         return dateDepart;
     }
 
-    public void setDateDepart(int dateDepart) {
+    public void setDateDepart(LocalDate dateDepart) {
         this.dateDepart = dateDepart;
     }
 
-    public int getDateArrive() {
+    public LocalDate getDateArrive() {
         return dateArrive;
     }
 
-    public void setDateArrive(int dateArrive) {
+    public void setDateArrive(LocalDate dateArrive) {
         this.dateArrive = dateArrive;
     }
 
@@ -91,7 +108,36 @@ public class VoyageParVol {
     }
 
     @Override
-    public String toString() {
-        return "VoyageParVol{" + "idVol=" + idVol + ", AeroportDepart=" + AeroportDepart + ", AeroportDestination=" + AeroportDestination + ", heureDepart=" + heureDepart + ", heureArrive=" + heureArrive + ", dateDepart=" + dateDepart + ", dateArrive=" + dateArrive + ", prix=" + prix + '}';
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.idVol);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final VoyageParVol other = (VoyageParVol) obj;
+        if (!Objects.equals(this.idVol, other.idVol)) {
+            return false;
+        }
+        return true;
+    }
+
+  
+    
+
+    @Override
+    public String toString() {
+        return "VoyageParVol{" + "idVol=" + idVol + ", AeroportDepart=" + AeroportDepart + ", AeroportDestination=" + AeroportDestination + ", heureDepart=" + heureDepart.toString() + ", heureArrive=" + heureArrive.toString() + ", dateDepart=" + dateDepart.format(dtf) + ", dateArrive=" + dateArrive.format(dtf) + ", prix=" + prix + '}';
+    }
+
 }

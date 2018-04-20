@@ -10,20 +10,30 @@ public class Aeroport implements Serializable{
     private String ville;
     private String pays;
     
+   /**
+    * 
+    * 
+    */
+   
     public Aeroport(){
         
     }
+    /**
+     * constructeur  parametré de la classe aeroport 
+     * @param idAeroport identidient de l'aeroport  code numerique
+     * @param nom  nom de l'aeroport
+     * @param ville lieu de localisation
+     * @param pays  pays où elle se trouve
+     */
     public Aeroport(String idAeroport, String nom, String ville, String pays){
         this.idAeroport=idAeroport;
         this.nom=nom;
         this.ville=ville;
         this.pays=pays;
     }
+   
+   
     
-    public void initAeroport(){
-       
-    }
-
     public String getIdAeroport() {
         return idAeroport;
     }
@@ -63,10 +73,7 @@ public class Aeroport implements Serializable{
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.idAeroport);
-        hash = 59 * hash + Objects.hashCode(this.nom);
-        hash = 59 * hash + Objects.hashCode(this.ville);
-        hash = 59 * hash + Objects.hashCode(this.pays);
+        hash = 71 * hash + Objects.hashCode(this.idAeroport);
         return hash;
     }
 
@@ -85,18 +92,15 @@ public class Aeroport implements Serializable{
         if (!Objects.equals(this.idAeroport, other.idAeroport)) {
             return false;
         }
-        if (!Objects.equals(this.nom, other.nom)) {
-            return false;
-        }
-        if (!Objects.equals(this.ville, other.ville)) {
-            return false;
-        }
-        if (!Objects.equals(this.pays, other.pays)) {
-            return false;
-        }
         return true;
     }
 
+   
+
+   /**
+    * 
+    * @return 
+    */
     @Override
     public String toString() {
         return "Aeroport{" + "idAeroport=" + idAeroport + ", nom=" + nom + ", ville=" + ville + ", pays=" + pays + '}';

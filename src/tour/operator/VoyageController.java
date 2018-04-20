@@ -1,3 +1,4 @@
+
 package tour.operator;
 
 import java.io.BufferedReader;
@@ -5,31 +6,26 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class PortControlleur {
+public class VoyageController {
 
-    private PortModele ptm1 = new PortModele();
-    private PortVue pv1 = new PortVue();
-    String id = null;
+    private VoyageVue voyVue = new VoyageVue();
+    private VoyageModele voyMod = new VoyageModele();
+    int id;
 
-    public PortControlleur() {
+    public VoyageController() {
 
     }
 
-    public PortControlleur(PortModele ptm1, PortVue pv1) {
-        this.ptm1 = ptm1;
-        this.pv1 = pv1;
-    }
-
-    public void ajoutPort() {
-        boolean verif = recherche(pv1.verifId());
-        if (verif == false) {
-            pv1.affMsg(ptm1.ajoutPort(pv1.ajoutPort(id)));
+    public void ajoutVoy() {
+        boolean verif= recherche(voyVue.verifId());
+        if(verif == false ){
+            voyVue.affMsg(voyMod.ajoutVoyage(voyVue.ajoutVoyage(id)));
         }
-
+        
     }
 
     public boolean recherche(String ida) {
-        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\port.txt");
+        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\voyage.txt");
         boolean verif = false;
         if (f.exists()) {
             try {
@@ -38,13 +34,13 @@ public class PortControlleur {
                 while ((line != null) && (verif != true)) {
                     String[] part = line.split("/");
                     if (ida.equals(part[0])) {
-                        pv1.affMsg("cet aeroport existe deja");
+                        voyVue.affMsg("ce voyage existe deja");
                         verif = true;
                     }
                     line = br.readLine();
                 }
                 if (verif == false) {
-                    id = ida;
+                    id = Integer.parseInt(ida);
                 }
                 br.close();
             } catch (Exception e) {
@@ -54,4 +50,10 @@ public class PortControlleur {
 
         return verif;
     }
+
+    @Override
+    public String toString() {
+        return "Voyagecontroller{" + "voyage vue=" + voyVue + ", voyModel=" + voyMod + '}';
+    }
+
 }

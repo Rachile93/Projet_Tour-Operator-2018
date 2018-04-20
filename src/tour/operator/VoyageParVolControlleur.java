@@ -5,31 +5,25 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class PortControlleur {
+public class VoyageParVolControlleur {
 
-    private PortModele ptm1 = new PortModele();
-    private PortVue pv1 = new PortVue();
-    String id = null;
+    private VoyageParVolModele voyVolMod = new VoyageParVolModele();
+    private VoyageParVolVue voyVolVue = new VoyageParVolVue();
+    private String id = null;
 
-    public PortControlleur() {
-
+    public VoyageParVolControlleur() {
     }
 
-    public PortControlleur(PortModele ptm1, PortVue pv1) {
-        this.ptm1 = ptm1;
-        this.pv1 = pv1;
-    }
-
-    public void ajoutPort() {
-        boolean verif = recherche(pv1.verifId());
+    public void ajout() {
+        boolean verif = recherche(voyVolVue.verifId());
         if (verif == false) {
-            pv1.affMsg(ptm1.ajoutPort(pv1.ajoutPort(id)));
+            voyVolMod.ajoutDeVol(voyVolVue.ajouterVol(id));
         }
 
     }
 
     public boolean recherche(String ida) {
-        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\port.txt");
+        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\voyage_par_vol.txt");
         boolean verif = false;
         if (f.exists()) {
             try {
@@ -38,7 +32,7 @@ public class PortControlleur {
                 while ((line != null) && (verif != true)) {
                     String[] part = line.split("/");
                     if (ida.equals(part[0])) {
-                        pv1.affMsg("cet aeroport existe deja");
+                        voyVolVue.affMsg("cet aeroport existe deja");
                         verif = true;
                     }
                     line = br.readLine();
@@ -54,4 +48,5 @@ public class PortControlleur {
 
         return verif;
     }
+
 }

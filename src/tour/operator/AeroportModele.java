@@ -1,17 +1,11 @@
 package tour.operator;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AeroportModele implements Serializable {
 
@@ -21,16 +15,9 @@ public class AeroportModele implements Serializable {
 
     }
 
-    public String ajoutAeroport(Aeroport aeroport1) throws IOException, ClassNotFoundException {
-        readInFile();
+    public String ajoutAeroport(Aeroport aeroport1) {
         mesAeroport.add(aeroport1);
-        try {
-            saveInFile(aeroport1);
-        } catch (IOException ex) {
-            Logger.getLogger(AeroportModele.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //  readInFile();
+        saveInFile(aeroport1);
         String msg = "ok";
         return msg;
     }
@@ -80,32 +67,33 @@ public class AeroportModele implements Serializable {
         return true;
     }
 
-    public void saveInFile(Aeroport A) throws IOException {
-        File p = new File("Aeroport_file.txt");
-        ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(p,true)));
-        oos.writeObject(A);
-        oos.close();
-    }
-
-    public void readInFile() throws IOException, ClassNotFoundException {
-        File p = new File("Aeroport_file.txt");
-        FileInputStream fis = new FileInputStream(p);
-        try (ObjectInputStream oos = new ObjectInputStream(new BufferedInputStream(fis))) {
-            Aeroport retn=new Aeroport();
-            retn = (Aeroport) oos.readObject();
-            System.out.println(retn);
-            retn = (Aeroport) oos.readObject();
-            System.out.println(retn);
-           // retn = (Aeroport) oos.readObject();
-           // System.out.println(retn);
-            
-           // int n=0;
-            /*while ( n != -1) {
-                n=fis.available();
-                retn = (Aeroport) oos.readObject();
-                System.out.println(retn);
-            }*/
+    public void saveInFile(Aeroport A) {
+        File p = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\Aeroport.txt");
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        if (!p.exists()) {
+            try {
+                p.createNewFile();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        try {
+            bw = new BufferedWriter(new FileWriter(p, true));
+            bw.write(A.getIdAeroport());
+            bw.write("/");
+            bw.write(A.getNom());
+            bw.write("/");
+            bw.write(A.getVille());
+            bw.write("/");
+            bw.write(A.getPays());
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    
 
 }

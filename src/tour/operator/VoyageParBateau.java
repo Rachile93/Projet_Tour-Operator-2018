@@ -1,23 +1,29 @@
-
 package tour.operator;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+
 public class VoyageParBateau {
-    
+
     private String idBateau;
     private String portDepart;
     private String portDestination;
-    private int heureDepart;
-    private int heureArrive;
-    private int dateDepart;
-    private int dateArrive;
+    private LocalTime heureDepart;
+    private LocalTime heureArrive;
+    private LocalDate dateDepart;
+    private LocalDate dateArrive;
     private double prix;
     private double prixSup;
-    
-    public VoyageParBateau(){
-        
+
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyy");
+
+    public VoyageParBateau() {
+
     }
 
-    public VoyageParBateau(String idBateau, String portDepart, String portDestination, int heureDepart, int heureArrive, int dateDepart, int dateArrive, double prix, double prixSup) {
+    public VoyageParBateau(String idBateau, String portDepart, String portDestination, LocalTime heureDepart, LocalTime heureArrive, LocalDate dateDepart, LocalDate dateArrive, double prix, double prixSup) {
         this.idBateau = idBateau;
         this.portDepart = portDepart;
         this.portDestination = portDestination;
@@ -27,9 +33,8 @@ public class VoyageParBateau {
         this.dateArrive = dateArrive;
         this.prix = prix;
         this.prixSup = prixSup;
-    }
 
-    
+    }
 
     public String getIdBateau() {
         return idBateau;
@@ -55,35 +60,64 @@ public class VoyageParBateau {
         this.portDestination = portDestination;
     }
 
-    public int getHeureDepart() {
+    public LocalTime getHeureDepart() {
         return heureDepart;
     }
 
-    public void setHeureDepart(int heureDepart) {
+    public void setHeureDepart(LocalTime heureDepart) {
         this.heureDepart = heureDepart;
     }
 
-    public int getHeureArrive() {
+    public LocalTime getHeureArrive() {
         return heureArrive;
     }
 
-    public void setHeureArrive(int heureArrive) {
+    public void setHeureArrive(LocalTime heureArrive) {
         this.heureArrive = heureArrive;
     }
 
-    public int getDateDepart() {
+    public LocalDate getDateDepart() {
         return dateDepart;
     }
 
-    public void setDateDepart(int dateDepart) {
+    public void setDateDepart(LocalDate dateDepart) {
         this.dateDepart = dateDepart;
     }
 
-    public int getDateArrive() {
+    public LocalDate getDateArrive() {
         return dateArrive;
     }
 
-    public void setDateArrive(int dateArrive) {
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.idBateau);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final VoyageParBateau other = (VoyageParBateau) obj;
+        if (!Objects.equals(this.idBateau, other.idBateau)) {
+            return false;
+        }
+        return true;
+    }
+
+  
+
+   
+
+    public void setDateArrive(LocalDate dateArrive) {
         this.dateArrive = dateArrive;
     }
 
@@ -102,9 +136,10 @@ public class VoyageParBateau {
     public void setPrixSup(double prixSup) {
         this.prixSup = prixSup;
     }
+
     @Override
     public String toString() {
-        return "VoyageParBateau{" + "idBateau=" + idBateau + ", portDepart=" + portDepart + ", portDestination=" + portDestination + ", heureDepart=" + heureDepart + ", heureArrive=" + heureArrive + ", dateDepart=" + dateDepart + ", dateArrive=" + dateArrive + ", prix=" + prix + ", prixSup=" + prixSup + '}';
+        return "VoyageParBateau{" + "idBateau=" + idBateau + ", portDepart=" + portDepart + ", portDestination=" + portDestination + ", heureDepart=" + heureDepart.toString() + ", heureArrive=" + heureArrive.toString() + ", dateDepart=" + dateDepart.format(dtf) + ", dateArrive=" + dateArrive.format(dtf) + ", prix=" + prix + ", prixSup=" + prixSup + '}';
     }
-    
+
 }

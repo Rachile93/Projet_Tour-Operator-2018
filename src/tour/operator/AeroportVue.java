@@ -1,6 +1,10 @@
 package tour.operator;
 
 import java.util.*;
+/**
+ * @
+ * @author Utilisateur
+ */
 
 public class AeroportVue {
 
@@ -10,8 +14,9 @@ public class AeroportVue {
 
     }
 
-    public Aeroport initAeroport() {
-        String idAeroport = getMsg("Identifiant Aeroport : ");
+    public Aeroport ajoutAeroport(String id) {
+        String idAeroport = id;
+        //Scanner s=new Scanner(idAeroport);
         String nom = getMsg("Nom Aeroport : ");
         String ville = getMsg("Ville : ");
         String pays = getMsg("Pays : ");
@@ -40,6 +45,47 @@ public class AeroportVue {
         for (Object o : liste) {
             affMsg((i++) + "." + o);
         }
+    }
+
+    public String verifId() {
+        boolean verif = false;
+        String id = null;
+        do {
+            int n = 0, i = 0;
+            verif = false;
+            id = getMsg("identifiant du Aeroport (veuilez saisir un id de 3 chiffres et 3 lettres ):");
+            char[] c = id.toLowerCase().toCharArray();
+            if (c.length == 6) {
+                for (char l : c) {
+                    if (i < 3) {
+                        if (l >= 'a' && l <= 'z') {
+                            n++;
+                        }
+
+                        i++;
+                    } else {
+                        if (i < 6) {
+                            if (l >= '0' && l <= '9') {
+                                n++;
+                            }
+                            i++;
+                        }
+                    }
+
+                }
+            }
+            affMsg(c.length);
+            if (n == c.length) {
+                verif = true;
+                affMsg("verification ok");
+            } else {
+                affMsg("erreur");
+            }
+
+        } while (verif == false);
+
+        return id;
+
     }
 
 }
