@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 import java.time.format.DateTimeFormatter;
-import javax.swing.text.DateFormatter;
 
 public class VoyageParVol {
 
@@ -51,7 +50,7 @@ public class VoyageParVol {
         this.idVol = idVol;
     }
 
-    public String getAeroportDepart() {
+    public String getAeroportDepart(){
         return AeroportDepart;
     }
 

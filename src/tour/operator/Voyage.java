@@ -8,6 +8,7 @@ public class Voyage {
     private TypeVoyage typeVoyage;
 
     public Voyage() {
+        
     }
     /**
      * cette methode permet de contruire un objet de type voyage 
@@ -66,5 +67,4 @@ public class Voyage {
     public String toString() {
         return "Voyage{" + "idVoyage=" + idVoyage + ", typeVoyage=" + typeVoyage + '}';
     }
-
 }

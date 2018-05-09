@@ -27,11 +27,7 @@ public class Port {
         this.pays = pays;
     }
 
-    public void initAeroport() {
-
-    }
-
-    public String getIdAeroport() {
+    public String getIdPort() {
         return idPort;
     }
 
@@ -63,6 +59,7 @@ public class Port {
         this.pays = pays;
     }
 
+  
     public void getAffiche(Object msg) {
         System.out.println(msg);
     }

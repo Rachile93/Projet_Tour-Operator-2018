@@ -1,2 +1,4 @@
-122EER/nsimalen/yaounde/cameroun
-122ZZZ/zaventen/bruxelle/belgique
+AZE444/zaventem/bruxelle/belgique
+YYU444/AEROPORT DE CHARLEROIT/charleroi/belgique
+ZZZ222/NZIMALEN /DOUALA/CAMEROUN
+TRR433/nzimalen/yaounde/cameroun

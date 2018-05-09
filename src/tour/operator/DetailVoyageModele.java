@@ -1,9 +1,6 @@
+
 package tour.operator;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,33 +11,27 @@ import java.util.Objects;
 import java.util.Scanner;
 import myconnection.DBConnection;
 
-public class VoyageModele {
 
-    private List<Voyage> mesVoyges = new ArrayList<>();
+public class DetailVoyageModele {
+    
+    private List<DetailVoyage> mesDetails = new ArrayList<>();
 
-    public VoyageModele() {
-
+    public DetailVoyageModele() {
+    }
+    
+    public void ajoutDetail(DetailVoyage dtv){
+        mesDetails.add(dtv);
+        saveInDBADetailVoyage(dtv);
     }
 
-    public int ajoutVoyage(Voyage v1) {
-        mesVoyges.add(v1);
-        //saveInFileVoyage(v1);
-        saveInDBVoyage(v1);
-        return mesVoyges.get(mesVoyges.size() - 1).getIdVoyage();
-    }
-
-    public List<Voyage> getMesVoyges() {
-        return mesVoyges;
-    }
-
-    public void setMesVoyges(List<Voyage> mesVoyges) {
-        this.mesVoyges = mesVoyges;
+    public List<DetailVoyage> getMesDetails() {
+        return mesDetails;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 23 * hash + Objects.hashCode(this.mesVoyges);
+        hash = 53 * hash + Objects.hashCode(this.mesDetails);
         return hash;
     }
 
@@ -55,43 +46,13 @@ public class VoyageModele {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final VoyageModele other = (VoyageModele) obj;
-        if (!Objects.equals(this.mesVoyges, other.mesVoyges)) {
+        final DetailVoyageModele other = (DetailVoyageModele) obj;
+        if (!Objects.equals(this.mesDetails, other.mesDetails)) {
             return false;
         }
         return true;
     }
-
-    public void saveInFileVoyage(Voyage v) {
-        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\voyage.txt");
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-
-        if (!f.exists()) {
-            try {
-                f.createNewFile();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        try {
-
-            fw = new FileWriter(f, true);
-            bw = new BufferedWriter(fw);
-
-            bw.write(String.valueOf(v.getIdVoyage()));
-            bw.write("/");
-            bw.write(v.getTypeVoyage().toString());
-
-            bw.newLine();
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void saveInDBVoyage(Voyage A){
+    public void saveInDBADetailVoyage(DetailVoyage A) {
         ResultSet rs = null;
         PreparedStatement pstm1 = null;
         Scanner sc = new Scanner(System.in);
@@ -101,12 +62,13 @@ public class VoyageModele {
         }
         System.out.println("connexion établie");
         try {
-            String query1 = "INSERT INTO Voyage(id_voyage ,TYPE_VOYAGE) values(?,?)";
-           
+            String query1 = "INSERT INTO Detail_Voyage(id_voyage,position,id_transport) values(?,?,?)";
             pstm1 = dbConnect.prepareStatement(query1);
+            
             pstm1.setInt(1, A.getIdVoyage());
-            pstm1.setString(2,A.getTypeVoyage().toString());
-
+            pstm1.setInt(2, A.getPosition());
+            pstm1.setString(3, A.getId());
+           
             int nl = pstm1.executeUpdate();
             System.out.println(nl + "ligne insérée");
 
@@ -134,4 +96,11 @@ public class VoyageModele {
         }
     }
 
+    @Override
+    public String toString() {
+        return "DetailVoyageModele{" + "mesDetails=" + mesDetails + '}';
+    }
+    
+    
+            
 }

@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AeroportControlleur {
     
@@ -14,7 +12,7 @@ public class AeroportControlleur {
     private String id= null;
            
 
-    public AeroportControlleur() {
+    public AeroportControlleur() {      
 
     }
 
@@ -22,19 +20,17 @@ public class AeroportControlleur {
         this.amd1 = amd1;
         this.av1 = av1;
     }
-    /**
-     * cette methode 
-     */
+    
     public void ajoutAerop() {
 
         try {
-            boolean verif = recherche(av1.verifId());
+            boolean verif = recherche(id = av1.verifId());
             if(verif==false){
                 av1.affMsg(amd1.ajoutAeroport(av1.ajoutAeroport(id)));
             }
             
         } catch (Exception ex) {
-            Logger.getLogger(AeroportControlleur.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         av1.affListe(amd1.getMesAeroport());
     }

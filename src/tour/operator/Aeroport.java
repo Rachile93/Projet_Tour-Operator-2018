@@ -4,17 +4,12 @@ package tour.operator;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Aeroport implements Serializable{
+public class Aeroport{
     private String idAeroport;
     private String nom;
     private String ville;
     private String pays;
-    
-   /**
-    * 
-    * 
-    */
-   
+  
     public Aeroport(){
         
     }
@@ -25,6 +20,7 @@ public class Aeroport implements Serializable{
      * @param ville lieu de localisation
      * @param pays  pays où elle se trouve
      */
+    
     public Aeroport(String idAeroport, String nom, String ville, String pays){
         this.idAeroport=idAeroport;
         this.nom=nom;
@@ -103,6 +99,6 @@ public class Aeroport implements Serializable{
     */
     @Override
     public String toString() {
-        return "Aeroport{" + "idAeroport=" + idAeroport + ", nom=" + nom + ", ville=" + ville + ", pays=" + pays + '}';
+        return  " - " + "idAeroport=" + idAeroport + ", nom=" + nom + ", ville=" + ville + ", pays=" + pays ;
     }
 }

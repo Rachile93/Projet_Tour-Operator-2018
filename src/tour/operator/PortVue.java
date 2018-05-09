@@ -10,6 +10,10 @@ public class PortVue {
 
     }
 
+    PortVue(String id, String portDeKribi, String kribi, String cameroun) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Port ajoutPort(String id) {
         String idPort = id;
         String nom = getMsg("Nom : ");

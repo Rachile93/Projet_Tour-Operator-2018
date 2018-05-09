@@ -99,7 +99,6 @@ public class VoyageVue {
         } while (verif == false);
 
         return id;
-
     }
 
 }

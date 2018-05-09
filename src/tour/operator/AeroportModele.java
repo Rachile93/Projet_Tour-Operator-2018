@@ -1,13 +1,14 @@
 package tour.operator;
 
+import java.sql.*;
+import myconnection.DBConnection;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.*;
 
-public class AeroportModele implements Serializable {
+public class AeroportModele {
 
     private List<Aeroport> mesAeroport = new ArrayList<>();
 
@@ -17,7 +18,8 @@ public class AeroportModele implements Serializable {
 
     public String ajoutAeroport(Aeroport aeroport1) {
         mesAeroport.add(aeroport1);
-        saveInFile(aeroport1);
+        //saveInFile(aeroport1);
+       saveDBLieu(aeroport1);
         String msg = "ok";
         return msg;
     }
@@ -94,6 +96,51 @@ public class AeroportModele implements Serializable {
         }
     }
 
-    
+    public void saveDBLieu(Aeroport A) {
+        ResultSet rs = null;
+        PreparedStatement pstm1 = null;
+        Scanner sc = new Scanner(System.in);
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(0);
+        }
+        System.out.println("connexion établie");
+        try {
+            String query1 = "INSERT INTO lieu(id_lieu,nom,ville,pays,type) values(?,?,?,?,?)";
+
+            pstm1 = dbConnect.prepareStatement(query1);
+            pstm1.setString(1, A.getIdAeroport());
+            pstm1.setString(2, A.getNom());
+            pstm1.setString(3, A.getVille());
+            pstm1.setString(4, A.getPays());
+            pstm1.setString(5, "aeroport");
+            
+            int nl = pstm1.executeUpdate();
+            
+            System.out.println(nl + "ligne insérée");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            //finalement fermer les ressources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de resultset " + e);
+            }
+            try {
+                if (pstm1 != null) {
+                    pstm1.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de statement " + e);
+            }
+            DBConnection.closeConnection();
+        }
+    }
 
 }

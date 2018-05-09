@@ -15,7 +15,7 @@ public class VoyageParVolControlleur {
     }
 
     public void ajout() {
-        boolean verif = recherche(voyVolVue.verifId());
+        boolean verif = recherche(id = voyVolVue.verifId());
         if (verif == false) {
             voyVolMod.ajoutDeVol(voyVolVue.ajouterVol(id));
         }
@@ -45,7 +45,6 @@ public class VoyageParVolControlleur {
                 e.printStackTrace();
             }
         }
-
         return verif;
     }
 

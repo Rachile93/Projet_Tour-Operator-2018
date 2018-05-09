@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tour.operator;
 
 import java.util.ArrayList;
@@ -23,7 +19,6 @@ public class Menu {
     private VoyageController voyCon = new VoyageController();
     private VoyageParBateauControleur voyBatCon = new VoyageParBateauControleur();
     private VoyageParVolControlleur voyVolCon = new VoyageParVolControlleur();
-
     public Menu() {
         navigationMenuPrincipale(menuPrincipale());
     }
@@ -55,7 +50,7 @@ public class Menu {
                 "Ajouter un Aeroport",
                 "Ajouter un port",
                 "Ajouter un vol",
-                "Ajouter un bateau",
+                "Ajouter un deplacement en bateau",
                 "fin"));
         affListe(listeItems);
 
@@ -79,10 +74,10 @@ public class Menu {
             case 2:
                 break;
             case 3:
-               
+
                 break;
             case 4:
-              
+
                 break;
             case 5:
                 affMsg("fin du programme");
@@ -98,7 +93,6 @@ public class Menu {
                 break;
             case 2:
                 aerp.ajoutAerop();
-                        
                 break;
             case 3:
                 pc.ajoutPort();

@@ -6,10 +6,15 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import java.time.format.DateTimeFormatter;
+import myconnection.DBConnection;
 
 public class VoyageParBateauVue {
 
@@ -24,15 +29,15 @@ public class VoyageParBateauVue {
     public VoyageParBateau ajouterVoyBateau(String id) {
         // readInFile();
 
-        String idBateau = id ;
+        String idBateau = id;
         affMsg("port de depart : ");
         affListe(port);
         String portDepart = getChoix("choisissez un numero :  ");
         affMsg("port de destination : ");
         affListe(port);
         String portDestination = getChoix("choisissez un numero :  ");
-        LocalTime heureDepart = LocalTime.parse(getMsg("heure depart du bateau : "));
-        LocalTime heureArrive = LocalTime.parse(getMsg("Heure Arrive du bateau : "));
+        LocalTime heureDepart = LocalTime.parse(getMsg("heure depart du bateau (h:mm): "));
+        LocalTime heureArrive = LocalTime.parse(getMsg("Heure Arrive du bateau (h:mm): "));
         LocalDate dateDepart = LocalDate.parse(getMsg("date de depart : "), dtf);
         LocalDate dateArrive = LocalDate.parse(getMsg("date arrivee : "), dtf);
         double prix = Double.parseDouble(getMsg("prix : "));
@@ -102,7 +107,7 @@ public class VoyageParBateauVue {
             }
         } while (false);
 
-        return port.get(n-1).getNom();
+        return port.get(n - 1).getNom();
     }
 
     public String verifId() {
@@ -131,7 +136,6 @@ public class VoyageParBateauVue {
 
                 }
             }
-            affMsg(c.length);
             if (n == c.length) {
                 verif = true;
             } else {
@@ -143,4 +147,53 @@ public class VoyageParBateauVue {
         return id;
 
     }
+    
+    public void readDBlieu() {
+        ResultSet rs = null;
+        PreparedStatement pstm1 = null;
+        Scanner sc = new Scanner(System.in);
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(0);
+        }
+        System.out.println("connexion établie");
+        try {
+            String query1 = "select id_lieu,nom,ville,pays  from lieu where type=?";
+            pstm1 = dbConnect.prepareStatement(query1);
+            pstm1.setString(1,"port");
+         
+            
+            rs = pstm1.executeQuery();
+            Port p = new Port();
+            while(rs.next()){
+                p.setIdPort(rs.getString("ID_LIEU"));
+                p.setNom(rs.getString("NOM"));
+                p.setVille(rs.getString("VILLE"));
+                p.setPays(rs.getString("PAYS"));
+                port.add(p);
+           }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            //finalement fermer les ressources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de resultset " + e);
+            }
+            try {
+                if (pstm1 != null) {
+                    pstm1.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de statement " + e);
+            }
+            DBConnection.closeConnection();
+        }
+    }
+    
 }
