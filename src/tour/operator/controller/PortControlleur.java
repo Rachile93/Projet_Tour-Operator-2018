@@ -1,29 +1,38 @@
-package tour.operator;
+package tour.operator.controller;
 
+import tour.operator.vue.PortVue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import tour.operator.modele.*;
+import tour.operator.vue.*;
 
-public class VoyageParVolControlleur {
+public class PortControlleur {
 
-    private VoyageParVolModele voyVolMod = new VoyageParVolModele();
-    private VoyageParVolVue voyVolVue = new VoyageParVolVue();
-    private String id = null;
+    private PortModele ptm1 = new PortModele();
+    private PortVue pv1 = new PortVue();
+    String id = null;
 
-    public VoyageParVolControlleur() {
+    public PortControlleur() {
+
     }
 
-    public void ajout() {
-        boolean verif = recherche(id = voyVolVue.verifId());
+    public PortControlleur(PortModele ptm1, PortVue pv1) {
+        this.ptm1 = ptm1;
+        this.pv1 = pv1;
+    }
+
+    public void ajoutPort() {
+        boolean verif = recherche(pv1.verifId());
         if (verif == false) {
-            voyVolMod.ajoutDeVol(voyVolVue.ajouterVol(id));
+            pv1.affMsg(ptm1.ajoutPort(pv1.ajoutPort(id)));
         }
 
     }
 
     public boolean recherche(String ida) {
-        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\voyage_par_vol.txt");
+        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\port.txt");
         boolean verif = false;
         if (f.exists()) {
             try {
@@ -32,7 +41,7 @@ public class VoyageParVolControlleur {
                 while ((line != null) && (verif != true)) {
                     String[] part = line.split("/");
                     if (ida.equals(part[0])) {
-                        voyVolVue.affMsg("cet aeroport existe deja");
+                        pv1.affMsg("cet aeroport existe deja");
                         verif = true;
                     }
                     line = br.readLine();
@@ -45,7 +54,7 @@ public class VoyageParVolControlleur {
                 e.printStackTrace();
             }
         }
+
         return verif;
     }
-
 }

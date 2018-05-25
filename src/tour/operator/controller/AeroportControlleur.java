@@ -1,9 +1,12 @@
-package tour.operator;
+package tour.operator.controller;
 
+import tour.operator.vue.AeroportVue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import tour.operator.modele.*;
+import tour.operator.vue.*;
 
 public class AeroportControlleur {
     

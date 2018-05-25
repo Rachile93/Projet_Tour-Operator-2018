@@ -1,6 +1,8 @@
-package tour.operator;
+package tour.operator.vue;
 
 import java.util.*;
+import tour.operator.TypeVoyage;
+import tour.operator.Voyage;
 
 public class VoyageVue {
 
@@ -59,13 +61,13 @@ public class VoyageVue {
                 switch (n) {
                     case 1:
                         tp = TypeVoyage.loisir;
-                    //    break;
+                        break;
                     case 2:
                         tp = TypeVoyage.sport;
-                    //     break;
+                         break;
                     case 3:
                         tp = TypeVoyage.avanture;
-                    //  break;
+                        break;
                 }
                 verif = true;
             } else {

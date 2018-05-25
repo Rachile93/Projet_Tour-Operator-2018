@@ -1,6 +1,7 @@
-package tour.operator;
+package tour.operator.vue;
 
 import java.util.*;
+import tour.operator.Aeroport;
 /**
  * @
  * @author Utilisateur
@@ -83,9 +84,7 @@ public class AeroportVue {
             }
 
         } while (verif == false);
-
         return id;
-
     }
 
 }

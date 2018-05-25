@@ -1,5 +1,6 @@
-package tour.operator;
+package tour.operator.modele;
 
+import tour.operator.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,6 +22,50 @@ public class VoyageParBateauModele {
     public void ajouterVoyageBateau(VoyageParBateau v) {
         mesVoyBateau.add(v);
         saveInDBTransport(v);
+    }
+
+    public void suprimerAeroport(String id) {
+        ResultSet rs = null;
+        PreparedStatement pstm1 = null;
+        Scanner sc = new Scanner(System.in);
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(0);
+        }
+        System.out.println("connexion établie");
+        try {
+            String query1 = "DELETE FROM transport where id_transport = ?";
+
+            pstm1 = dbConnect.prepareStatement(query1,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+
+            pstm1.setString(1, id);
+
+            int nl = pstm1.executeUpdate();
+
+            System.out.println(nl + "ligne suprimer");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            //finalement fermer les ressources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de resultset " + e);
+            }
+            try {
+                if (pstm1 != null) {
+                    pstm1.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de statement " + e);
+            }
+            DBConnection.closeConnection();
+        }
     }
 
     @Override
@@ -61,7 +106,7 @@ public class VoyageParBateauModele {
         return true;
     }
 
-    public void saveInFile(VoyageParBateau A) {
+    /* public void saveInFile(VoyageParBateau A) {
         File p = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\voyage_en_bateau.txt");
         FileWriter fw = null;
         BufferedWriter bw = null;
@@ -96,8 +141,7 @@ public class VoyageParBateauModele {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
+    }*/
     public void saveInDBTransport(VoyageParBateau A) {
         ResultSet rs = null;
         PreparedStatement pstm1 = null;
@@ -109,9 +153,9 @@ public class VoyageParBateauModele {
         System.out.println("connexion établie");
         try {
             String query1 = "INSERT INTO transport(id_transport,lieu_depart,lieu_arrive,heure_depart,heure_arrive,date_depart,date_arrive,prix,prix_sup,type_transport) ";
-                   query1 += "values(?,?,?,?,?,?,?,?,?,?)";
+            query1 += "values(?,?,?,?,?,?,?,?,?,?)";
 
-            pstm1 = dbConnect.prepareStatement(query1);
+            pstm1 = dbConnect.prepareStatement(query1,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             pstm1.setString(1, A.getIdBateau());
             pstm1.setString(2, A.getPortDepart());
             pstm1.setString(3, A.getPortDestination());
@@ -122,7 +166,7 @@ public class VoyageParBateauModele {
             pstm1.setDouble(8, A.getPrix());
             pstm1.setDouble(9, A.getPrixSup());
             pstm1.setString(10, "bateau");
-            
+
             int nl = pstm1.executeUpdate();
             System.out.println(nl + "ligne insérée");
 

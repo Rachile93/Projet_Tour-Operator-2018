@@ -1,6 +1,11 @@
 
 package tour.operator;
 
+import tour.operator.controller.PortControlleur;
+import tour.operator.controller.VoyageController;
+import tour.operator.controller.VoyageParBateauControleur;
+import tour.operator.controller.VoyageParVolControlleur;
+import tour.operator.controller.AeroportControlleur;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

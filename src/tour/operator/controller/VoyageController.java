@@ -1,28 +1,34 @@
 
-package tour.operator;
+package tour.operator.controller;
 
+import tour.operator.vue.VoyageVue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import tour.operator.modele.*;
+import tour.operator.vue.*;
 
-public class VoyageParBateauControleur {
+public class VoyageController {
 
-    private VoyageParBateauModele voyBatMod = new VoyageParBateauModele();
-    private VoyageParBateauVue voyBatVue = new VoyageParBateauVue();
-    String  id = null;
+    private VoyageVue voyVue = new VoyageVue();
+    private VoyageModele voyMod = new VoyageModele();
+    int id;
 
-    public VoyageParBateauControleur() {
+    public VoyageController() {
+
     }
 
-    public void  ajout(){
-        boolean verif = recherche(id = voyBatVue.verifId());
-        if(verif == false){
-            voyBatMod.ajouterVoyageBateau(voyBatVue.ajouterVoyBateau(id));
-        }     
+    public void ajoutVoy() {
+        boolean verif= recherche( voyVue.verifId());
+        if(verif == false ){
+            voyVue.affMsg(voyMod.ajoutVoyage(voyVue.ajoutVoyage(id)));
+        }
+        
     }
-     public boolean recherche(String ida) {
-        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\voyage_par_bateau.txt");
+
+    public boolean recherche(String ida) {
+        File f = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\voyage.txt");
         boolean verif = false;
         if (f.exists()) {
             try {
@@ -31,13 +37,13 @@ public class VoyageParBateauControleur {
                 while ((line != null) && (verif != true)) {
                     String[] part = line.split("/");
                     if (ida.equals(part[0])) {
-                        voyBatVue.affMsg("cet aeroport existe deja");
+                        voyVue.affMsg("ce voyage existe deja");
                         verif = true;
                     }
                     line = br.readLine();
                 }
                 if (verif == false) {
-                    id = ida;
+                    id = Integer.parseInt(ida);
                 }
                 br.close();
             } catch (Exception e) {
@@ -47,4 +53,7 @@ public class VoyageParBateauControleur {
 
         return verif;
     }
+
+  
+
 }

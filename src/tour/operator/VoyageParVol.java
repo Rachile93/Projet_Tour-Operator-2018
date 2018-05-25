@@ -15,6 +15,7 @@ public class VoyageParVol {
     private LocalDate dateDepart;
     private LocalDate dateArrive;
     private double prix;
+    private String type_tranport;
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
 
@@ -40,6 +41,15 @@ public class VoyageParVol {
         this.dateDepart = dateDepart;
         this.dateArrive = dateArrive;
         this.prix = prix;
+        this.type_tranport = "vol";
+    }
+
+    public String getType_tranport() {
+        return type_tranport;
+    }
+
+    public void setType_tranport(String type_tranport) {
+        this.type_tranport = type_tranport;
     }
 
     public String getIdVol() {

@@ -1,5 +1,9 @@
 
-package tour.operator;
+package tour.operator.controller;
+
+import tour.operator.vue.DetailVoyageVue;
+import tour.operator.modele.*;
+import tour.operator.vue.*;
 
 public class DetailVoyageController {
     private DetailVoyageVue dtVgVue = new DetailVoyageVue();

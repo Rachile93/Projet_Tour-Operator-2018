@@ -9,6 +9,7 @@ public class Aeroport{
     private String nom;
     private String ville;
     private String pays;
+    private String type_lieu;
   
     public Aeroport(){
         
@@ -26,6 +27,15 @@ public class Aeroport{
         this.nom=nom;
         this.ville=ville;
         this.pays=pays;
+        this.type_lieu = "aeroport";
+    }
+
+    public String getType_lieu() {
+        return type_lieu;
+    }
+
+    public void setType_lieu(String type_lieu) {
+        this.type_lieu = type_lieu;
     }
    
    

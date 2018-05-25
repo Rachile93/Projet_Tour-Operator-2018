@@ -1,6 +1,7 @@
-package tour.operator;
+package tour.operator.vue;
 
 import java.util.*;
+import tour.operator.Port;
 
 public class PortVue {
 

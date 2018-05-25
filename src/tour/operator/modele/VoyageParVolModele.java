@@ -1,5 +1,6 @@
-package tour.operator;
+package tour.operator.modele;
 
+import tour.operator.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -25,8 +26,102 @@ public class VoyageParVolModele {
     public void ajoutDeVol(VoyageParVol v) {
 
         mesVol.add(v);
-       // saveInFile(v);
+        // saveInFile(v);
         saveInDBTranport(v);
+    }
+
+    public void modifVol(VoyageParVol voyVol) {
+        ResultSet rs = null;
+        PreparedStatement pstm1 = null;
+        Scanner sc = new Scanner(System.in);
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(0);
+        }
+        System.out.println("connexion établie");
+        try {
+            String query1 = "update  transport set lieu_depart = ?,lieu_arrive = ?,heure_depart=?,heure_arrive= ?,date_depart=?,date_arrive=?,prix=?,type_transport=? where id_transport = ? ";
+
+            pstm1 = dbConnect.prepareStatement(query1);
+            pstm1.setString(1, voyVol.getAeroportDepart());
+            pstm1.setString(2, voyVol.getAeroportDestination());
+            pstm1.setTime(3, java.sql.Time.valueOf(voyVol.getHeureDepart()));
+            pstm1.setTime(4, java.sql.Time.valueOf(voyVol.getHeureArrive()));
+            pstm1.setDate(5, java.sql.Date.valueOf(voyVol.getDateDepart()));
+            pstm1.setDate(6, java.sql.Date.valueOf(voyVol.getDateArrive()));
+            pstm1.setDouble(7, voyVol.getPrix());
+            pstm1.setString(8, "vol");
+            pstm1.setString(9, voyVol.getIdVol());
+
+            int nl = pstm1.executeUpdate();
+            System.out.println(nl + "ligne modifier");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            //finalement fermer les ressources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de resultset " + e);
+            }
+            try {
+                if (pstm1 != null) {
+                    pstm1.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de statement " + e);
+            }
+            DBConnection.closeConnection();
+        }
+    }
+
+    public void suprimerAeroport(String id) {
+        ResultSet rs = null;
+        PreparedStatement pstm1 = null;
+        Scanner sc = new Scanner(System.in);
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(0);
+        }
+        System.out.println("connexion établie");
+        try {
+            String query1 = "DELETE FROM transport where id_transport = ?";
+
+            pstm1 = dbConnect.prepareStatement(query1, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            pstm1.setString(1, id);
+
+            int nl = pstm1.executeUpdate();
+
+            System.out.println(nl + "ligne suprimer");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            //finalement fermer les ressources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de resultset " + e);
+            }
+            try {
+                if (pstm1 != null) {
+                    pstm1.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de statement " + e);
+            }
+            DBConnection.closeConnection();
+        }
     }
 
     public List<VoyageParVol> getVol() {
@@ -68,7 +163,7 @@ public class VoyageParVolModele {
         return true;
     }
 
-   /* public void saveInFile(VoyageParVol A) {
+    /* public void saveInFile(VoyageParVol A) {
         File p = new File("C:\\Users\\Utilisateur\\Documents\\NetBeansProjects\\TOUR-OPERATOR\\voyage_en_vol.txt");
         if (!p.exists()) {
             try {
@@ -101,7 +196,6 @@ public class VoyageParVolModele {
             e.printStackTrace();
         }
     }*/
-
     public void saveInDBTranport(VoyageParVol A) {
         ResultSet rs = null;
         PreparedStatement pstm1 = null;
@@ -113,7 +207,7 @@ public class VoyageParVolModele {
         System.out.println("connexion établie");
         try {
             String query1 = "INSERT INTO transport(id_transport,lieu_depart,lieu_arrive,heure_depart,heure_arrive,date_depart,date_arrive,prix,type_transport) ";
-                   query1 += "values(?,?,?,?,?,?,?,?,?)";
+            query1 += "values(?,?,?,?,?,?,?,?,?)";
 
             pstm1 = dbConnect.prepareStatement(query1);
             pstm1.setString(1, A.getIdVol());
@@ -125,7 +219,6 @@ public class VoyageParVolModele {
             pstm1.setDate(7, java.sql.Date.valueOf(A.getDateArrive()));
             pstm1.setDouble(8, A.getPrix());
             pstm1.setString(9, "vol");
-            
 
             int nl = pstm1.executeUpdate();
             System.out.println(nl + "ligne insérée");

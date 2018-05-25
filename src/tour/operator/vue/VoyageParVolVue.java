@@ -1,4 +1,4 @@
-package tour.operator;
+package tour.operator.vue;
 
 import java.util.*;
 import java.io.BufferedReader;
@@ -15,6 +15,10 @@ import java.time.LocalTime;
 import java.util.Collection;
 import java.time.format.DateTimeFormatter;
 import myconnection.DBConnection;
+import tour.operator.Aeroport;
+import tour.operator.Aeroport;
+import tour.operator.VoyageParVol;
+import tour.operator.VoyageParVol;
 
 public class VoyageParVolVue {
 

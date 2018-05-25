@@ -1,5 +1,6 @@
-package tour.operator;
+package tour.operator.modele;
 
+import tour.operator.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -23,12 +24,11 @@ public class PortModele {
 
     public String ajoutPort(Port port1) {
         mesPort.add(port1);
-       // saveInFile(port1);
+        // saveInFile(port1);
         saveInDBLieu(port1);
         String msg = "ok";
         return msg;
     }
-
 
     public void recherchePort() {
 
@@ -38,8 +38,48 @@ public class PortModele {
 
     }
 
-    public void suprimerPort() {
+    public void suprimerPort(String id) {
+        ResultSet rs = null;
+        PreparedStatement pstm1 = null;
+        Scanner sc = new Scanner(System.in);
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(0);
+        }
+        System.out.println("connexion établie");
+        try {
+            String query1 = "DELETE FROM lieu where id_lieu = ?";
 
+            pstm1 = dbConnect.prepareStatement(query1,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+
+            pstm1.setString(1, id);
+
+            int nl = pstm1.executeUpdate();
+
+            System.out.println(nl + "ligne suprimer");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            //finalement fermer les ressources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de resultset " + e);
+            }
+            try {
+                if (pstm1 != null) {
+                    pstm1.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("erreur de fermeture de statement " + e);
+            }
+            DBConnection.closeConnection();
+        }
     }
 
     public List<Port> getMesPort() {
@@ -108,6 +148,7 @@ public class PortModele {
             e.printStackTrace();
         }
     }
+
     public void saveInDBLieu(Port A) {
         ResultSet rs = null;
         PreparedStatement pstm1 = null;
@@ -120,17 +161,16 @@ public class PortModele {
         try {
             String query1 = "INSERT INTO lieu(id_lieu,nom,ville,pays,type) values(?,?,?,?,?)";
 
-            pstm1 = dbConnect.prepareStatement(query1);
+            pstm1 = dbConnect.prepareStatement(query1,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             pstm1.setString(1, A.getIdPort());
             pstm1.setString(2, A.getNom());
             pstm1.setString(3, A.getVille());
             pstm1.setString(4, A.getPays());
             pstm1.setString(5, "port");
-            
-            int nl = pstm1.executeUpdate();
-            
-            System.out.println(nl + "ligne insérée");
 
+            int nl = pstm1.executeUpdate();
+
+            System.out.println(nl + "ligne insérée");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

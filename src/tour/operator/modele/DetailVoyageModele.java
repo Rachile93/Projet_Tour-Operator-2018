@@ -1,6 +1,7 @@
 
-package tour.operator;
+package tour.operator.modele;
 
+import tour.operator.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,7 +64,7 @@ public class DetailVoyageModele {
         System.out.println("connexion établie");
         try {
             String query1 = "INSERT INTO Detail_Voyage(id_voyage,position,id_transport) values(?,?,?)";
-            pstm1 = dbConnect.prepareStatement(query1);
+            pstm1 = dbConnect.prepareStatement(query1,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             
             pstm1.setInt(1, A.getIdVoyage());
             pstm1.setInt(2, A.getPosition());

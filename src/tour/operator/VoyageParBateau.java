@@ -16,6 +16,7 @@ public class VoyageParBateau {
     private LocalDate dateArrive;
     private double prix;
     private double prixSup;
+    private String type_tranport;
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyy");
 
@@ -33,7 +34,16 @@ public class VoyageParBateau {
         this.dateArrive = dateArrive;
         this.prix = prix;
         this.prixSup = prixSup;
+        this.type_tranport = "bateau";
 
+    }
+
+    public String getType_tranport() {
+        return type_tranport;
+    }
+
+    public void setType_tranport(String type_tranport) {
+        this.type_tranport = type_tranport;
     }
 
     public String getIdBateau() {

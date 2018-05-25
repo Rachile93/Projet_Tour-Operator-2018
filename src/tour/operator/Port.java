@@ -9,6 +9,7 @@ public class Port {
     private String nom;
     private String ville;
     private String pays;
+    private String type_lieu;
 
     public Port() {
 
@@ -25,6 +26,15 @@ public class Port {
         this.nom = nom;
         this.ville = ville;
         this.pays = pays;
+        this.type_lieu = "port";
+    }
+
+    public String getType_lieu() {
+        return type_lieu;
+    }
+
+    public void setType_lieu(String type_lieu) {
+        this.type_lieu = type_lieu;
     }
 
     public String getIdPort() {
